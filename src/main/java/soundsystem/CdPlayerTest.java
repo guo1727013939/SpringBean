@@ -14,8 +14,8 @@ import static org.junit.Assert.assertNotNull;
  * @since 2022-08-22 10：51
  **/
 @RunWith(SpringJUnit4ClassRunner.class)
-//@ContextConfiguration(classes = CdPlayerConfig.class)
-@ContextConfiguration(value = "/soundsystem.xml")
+@ContextConfiguration(classes = CdPlayerConfig.class)
+//@ContextConfiguration(value = "/soundsystem.xml")
 public class CdPlayerTest {
 
     @Autowired
