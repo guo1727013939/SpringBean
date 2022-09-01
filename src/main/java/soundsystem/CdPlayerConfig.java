@@ -49,7 +49,7 @@ public class CdPlayerConfig {
         return new CDPlayer(sgtPeppers());
     }
 
-    @Bean
+    /*@Bean
     public CDPlayer cdPlayer(CompactDisc compactDisc){
         return new CDPlayer(compactDisc);
     }
@@ -59,5 +59,5 @@ public class CdPlayerConfig {
         CDPlayer cdPlayer = new CDPlayer(compactDisc);
         cdPlayer.setCd(compactDisc);
         return cdPlayer;
-    }
+    }*/
 }
