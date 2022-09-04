@@ -1,12 +1,101 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xmlns:context="http://www.springframework.org/schema/context"
        xmlns:c="http://www.springframework.org/schema/c"
-       xmlns:p="http://www.springframework.org/schema/p"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+  http://www.springframework.org/schema/beans/spring-beans.xsd
+  http://www.springframework.org/schema/context" >
+    <!-- <bean> 元素类似于 JavaCofig 中的 @Bean 注解。 -->
+    <!-- 声明了一个很简单的 bean -->
+    <!-- 因为没有明确给定ID,默认 soundsystem.SgtPeppers#0-->
+    <!--  soundsystem.SgtPeppers #0-->
+    <!--        包名.类名 “#0” 是一个计数的形式，用来区分相同类型的其他 bean -->
+    <!-- 如果你声明了另外一个 SgtPeppers，并且没有明确进行标识，那么它自动得到的 ID 将会是 “soundsystem.SgtPeppers#1” -->
+    <bean id="sgtPeppers" class="soundsystem.SgtPeppers" />
 
-    <context:component-scan base-package="soundsystem" />
+
+    <!-- 因为明确给定ID, 该Bean的ID为compactDisc-->
+    <bean id="compactDisc" class="soundsystem.SgtPeppers" />
+
+    <bean id="cdPlayer" class="soundsystem.CDPlayer">
+        <constructor-arg ref="compactDisc" />
+    </bean>
+
+    <!--代替方案你也可以使用c-命名空间和模式声明-->
+    <!--模式声明 在顶部添加 xmlns:c="http://www.springframework.org/schema/c"-->
+    <!-- c:cd-ref="compactDisc -->
+    <!-- c:  cd  -ref="compactDisc -->
+    <!-- cd  构造器参数名    CompactDisc cd
+    public CDPlayer(CompactDisc cd){
+        this.cd = cd;
+    }
+    -->
+    <bean id="cdPlayer" class="soundsystem.CDPlayer" c:cd-ref="compactDisc" />
+
+    <!--替代的方案是我们使用参数在整个参数列表中的位置信息：-->
+    <!--该方法的第一个构造参数-->
+    <bean id="cdPlayer" class="soundsystem.CDPlayer" c:_0-ref="compactDisc" />
+
+    <!--将字面量注入到构造器中-->
+    <bean id="compactDisc" class="soundsystem.BlankDisc"
+          c:title="Sgt. Pepper's Lonely Hearts Club Band"
+          c:artist="The Beatles" />
+
+    <bean id="compactDisc" class="soundsystem.BlankDisc">
+        <constructor-arg value="Sgt. Pepper's Lonely Hearts Club Band" />
+        <constructor-arg value="The Beatles" />
+    </bean>
+
+    <bean id="compactDisc" class="soundsystem.BlankDisc"
+          c:_0="Sgt. Pepper's Lonely Hearts Club Band"
+          c:_1="The Beatles" />
+
+    <!--装配集合 构造器 list-->
+    <bean id="compactDisc"
+          class="soundsystem.BlankDisc"
+          c:_0="Sgt. Pepper's Lonely Hearts Club Band"
+          c:_1="The Beatles">
+        <constructor-arg>
+            <list>
+                <value>Sgt. Pepper's Lonely Hearts Club Band</value>
+                <value>With a Little Help from My Friends</value>
+                <value>Lucy in the Sky with Diamonds</value>
+                <value>Getting Better</value>
+                <value>Fixing a Hole</value>
+            </list>
+        </constructor-arg>
+    </bean>
+
+    <!--装配集合 构造器 set-->
+    <bean id="compactDisc" class="soundsystem.BlankDisc" >
+        <constructor-arg value="Sgt. Pepper's Lonely Hearts Club Band" />
+        <constructor-arg value="The Beatles" />
+        <constructor-arg>
+            <set>
+                <value>Sgt. Pepper's Lonely Hearts Club Band</value>
+                <value>With a Little Help from My Friends</value>
+                <value>Lucy in the Sky with Diamonds</value>
+                <value>Getting Better</value>
+                <value>Fixing a Hole</value>
+                <!-- ...other tracks omitted for brevity... -->
+            </set>
+        </constructor-arg>
+    </bean>
+
+
+
+   <!--假设你的构造器如下 public Discography(String artist, List<CompactDisc> cds) { ... }-->
+    <bean id="beatlesDiscography"
+          class="soundsystem.Discography" >
+        <constructor-arg value="Sgt. Pepper's Lonely Hearts Club Band"/>
+        <constructor-arg>
+            <list>
+                <ref bean="sgtPeppers" />
+                <ref bean="whiteAlbum" />
+                <ref bean="hardDaysNight" />
+                <ref bean="revolver" />
+            </list>
+        </constructor-arg>
+    </bean>
 
 </beans>
