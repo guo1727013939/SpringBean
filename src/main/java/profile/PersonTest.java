@@ -48,6 +48,7 @@ public class PersonTest {
     @Autowired
     Person person;
 
+    //TODO 打印所有的bean 查看User2为什么会注册多次
     @Test
     public void testProfile(){
         person.eat();
