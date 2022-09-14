@@ -1,8 +1,20 @@
-# 默认忽略的文件
-/shelf/
-/workspace.xml
-# 基于编辑器的 HTTP 客户端请求
-/httpRequests/
-# Datasource local storage ignored files
-/dataSources/
-/dataSources.local.xml
+/target/
+.idea
+*.iml
+.tags
+.tags_sorted_by_file
+.pyc
+__pycache__
+.cache
+.settings
+.classpath
+.project
+.DS_Store
+*.pid
+*Help
+target
+log.*
+.DS_Store
+log.home_IS_UNDEFINED
+doc/api_doc
+————————————————

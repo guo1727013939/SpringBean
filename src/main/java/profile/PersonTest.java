@@ -3,9 +3,13 @@ package profile;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * Created on 2022/9/13.
@@ -47,6 +51,15 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class PersonTest {
     @Autowired
     Person person;
+
+    @Autowired
+    private ApplicationContext applicationContext;
+
+    @Test
+    public void beanList() {
+        Arrays.asList(applicationContext.getBeanDefinitionNames());
+    }
+
 
     //TODO 打印所有的bean 查看User2为什么会注册多次
     @Test

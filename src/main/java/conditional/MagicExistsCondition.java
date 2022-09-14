@@ -14,7 +14,6 @@ import org.springframework.context.annotation.Condition;
 //实现了Condition接口 该接口为函数式如果返回的是true MagicBean就会创建bean 否则就不会
 public class MagicExistsCondition implements Condition{
 
-    // 如果这个接口返回的是一个true 则会常见bean
     @Override
     public boolean matches(ConditionContext ctxt, AnnotatedTypeMetadata metadata) {
         Environment env = ctxt.getEnvironment();
